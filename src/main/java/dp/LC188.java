@@ -17,7 +17,6 @@ public class LC188 {
         }
 
         for (int i = 1; i < dp.length; i++) {
-            dp[i][0] = dp[i - 1][0];
             for (int j = 1; j <= k; j++) {
                 //在第 i 天第 k 次买入的最大值等于：MAX(第 i - 1 天第 k 次买入，第 i - 1 天第 k - 1 次卖出 - 第 i 天的股票数值)
                 dp[i][j * 2] = Math.max(dp[i - 1][j * 2], dp[i - 1][j * 2 - 1] - prices[i]);
