@@ -30,6 +30,14 @@ public class LC91 {
 
 
     //复杂写法
+//    1.n和ln无法组成，且可以分开：***99,***05
+//        res[i] = res[i - 1]
+//    2.n和ln无法组成，且无法分开：***90，**00
+//        return 0;
+//    3.n和ln可以组成，且无法分开：***20
+//      res[i] = res[i - 2]
+//    4.n和ln可以组成，且可以分开：***12
+//      res[i] = res[i - 2] + res[i - 1]
 //    public int numDecodings(String s) {
 //        if(s.length() == 1)
 //            return s.charAt(0) == '0' ? 0 : 1;
