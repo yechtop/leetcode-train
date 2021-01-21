@@ -1,18 +1,66 @@
 package search;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class LC127 {
 
+    //广度优先算法
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        //优先将所有的值添加到 Set 里面，从而判断是否有该值
+        HashSet<String> wordSet = new HashSet<>(wordList);
+        if (wordSet.size() == 0 || !wordSet.contains(endWord))
+            return 0;
+
+        wordSet.remove(beginWord);
+
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(beginWord);
+        Set<String> visited = new HashSet<>();
+        visited.add(beginWord);
+
+        int step = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                String currentWord = queue.poll();
+                if (fun(currentWord, endWord, queue, visited, wordSet)){
+                    return step + 1;
+                }
+            }
+            step++;
+
+        }
         return 0;
+    }
+
+    private boolean fun(String currentWord, String endWord, Queue<String> queue, Set<String> visited, HashSet<String> wordSet) {
+        char[] charArray = currentWord.toCharArray();
+        for (int i = 0; i < endWord.length(); i++) {
+            char originChar = charArray[i];
+            for (char j = 'a'; j <= 'z'; j++) {
+                if(j == originChar)
+                    continue;
+                charArray[i] = j;
+                String nextWord = String.valueOf(charArray);
+                if(wordSet.contains(nextWord)){
+                    if(endWord.equals(nextWord))
+                        return true;
+                    if(!visited.contains(nextWord)){
+                        queue.add(nextWord);
+                        visited.add(nextWord);
+                    }
+
+                }
+            }
+            charArray[i] = originChar;
+        }
+
+        return false;
     }
 
 
     public static void main(String[] args) {
-        System.out.println(new LC127().ladderLength("hit", "cog", new ArrayList<>(List.of("hot","dog"))));
+        System.out.println(new LC127().ladderLength("hit", "cog", new ArrayList<>(List.of("hot", "dog"))));
     }
 
     //Dijkstra 算法
