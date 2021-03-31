@@ -15,19 +15,23 @@ public class LC980 {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 switch (grid[i][j]) {
-                    case 1 -> {
+                    case 1: {
                         startI = i;
                         startJ = j;
                     }
-                    case 0 -> emptyNums++;
-                    case 2 -> {
+                    break;
+                    case 0:
+                        emptyNums++;
+                        break;
+                    case 2: {
                         endI = i;
                         endJ = j;
                     }
+                    break;
                 }
             }
         }
-        go(grid,emptyNums,startI,startJ);
+        go(grid, emptyNums, startI, startJ);
         return res;
     }
 
@@ -63,6 +67,6 @@ public class LC980 {
 
     public static void main(String[] args) {
         System.out.println(2 & 1);
-        System.out.println(new LC980().uniquePathsIII(new int[][]{{1,0,0,0},{0,0,0,0},{0,0,2,-1}}));
+        System.out.println(new LC980().uniquePathsIII(new int[][]{{1, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 2, -1}}));
     }
 }
